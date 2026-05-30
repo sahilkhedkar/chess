@@ -5,8 +5,8 @@
     "exports": {
         "./*": "./src/*.ts"
     },
-    "scripts": {
-    },
-    "devDependencies": {
+    "scripts": {},
+    "dependencies": {
+        "zod": "^4.4.3"
     }
 }
