@@ -1,0 +1,11 @@
+{
+    "name": "@repo/db",
+    "version": "0.0.0",
+    "private": true,
+    "exports": {
+        ".": "./src/db.ts",
+        "./*": "./src/*.ts"
+    },
+    "scripts": {},
+    "dependencies": {}
+}
