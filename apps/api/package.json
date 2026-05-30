@@ -1,0 +1,13 @@
+{
+    "name": "api",
+    "version": "0.1.0",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "dev" : "npx tsx src/index.ts"
+    },
+    "dependencies": {
+        "@elysia/node": "^1.4.6",
+        "elysia": "^1.4.28"
+    }
+}
