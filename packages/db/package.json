@@ -7,5 +7,10 @@
         "./*": "./src/*.ts"
     },
     "scripts": {},
-    "dependencies": {}
+    "dependencies": {
+        "crypto": "^1.0.1"
+    },
+    "devDependencies": {
+        "@types/node": "^22.15.3"
+    }
 }

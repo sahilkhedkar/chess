@@ -1,4 +1,4 @@
-import { createHash, timingSafeEqual } from "crypto";
+import { createHash, timingSafeEqual, randomUUID } from "crypto";
 
 export type UserId = string;
 
@@ -66,7 +66,7 @@ class UserStore {
 
 		const now = new Date();
 		const user: User = {
-			id: crypto.randomUUID(),
+			id: randomUUID(),
 			email,
 			name: input.name,
 			passwordHash: hashPassword(input.password),
@@ -87,7 +87,7 @@ class UserStore {
 		}
 
 		const user: User = {
-			id: input.id ?? crypto.randomUUID(),
+			id: input.id ?? randomUUID(),
 			email,
 			name: input.name,
 			passwordHash: input.passwordHash,
