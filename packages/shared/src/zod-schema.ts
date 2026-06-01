@@ -12,4 +12,9 @@ const loginSchema = z.object({
     password: z.string(),
 });
 
-export { signupSchema, loginSchema };
+const websocketMessageSchema = z.object({
+    type: z.string(),
+    payload: z.object().optional()
+});
+
+export { signupSchema, loginSchema, websocketMessageSchema };
