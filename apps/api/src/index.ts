@@ -1,16 +1,16 @@
 import { Elysia } from "elysia";
-import { node } from "@elysia/node";
+import { node } from "@elysiajs/node";
 import * as schema from "@repo/shared/zod-schema";
 import { signJwt } from "../lib/jwt";
 import { authPlugin } from "./auth";
 import { userStore } from "@repo/db/db";
-import { cors } from "@elysia/cors";
+import { cors } from "@elysiajs/cors";
 
 const app = new Elysia({ adapter: node() }).use(cors()).get("/", () => "Hello Elysia");
 
 //signup route
 
-app.post("/signup", async (req) => {
+app.post("/signup", async (req: any) => {
   const { success, data } = schema.signup.safeParse(req.body);
   if (!success) {
     return { error: "Invalid input" };
@@ -35,7 +35,7 @@ app.post("/signup", async (req) => {
 
 //login route
 
-app.post("/login", async (req) => {
+app.post("/login", async (req: any) => {
   const { success, data } = schema.login.safeParse(req.body);
   if (!success) {
     return { error: "Invalid input" };
@@ -56,7 +56,7 @@ app.post("/login", async (req) => {
   };
 });
 
-app.use(authPlugin).get("/protected", ({ user }) => {
+app.use(authPlugin).get("/protected", ({ user }: any) => {
   return {
     message: "This is a protected route!",
     user: user,
