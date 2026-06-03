@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import { events } from "@repo/shared/events";
+import { ArrowLeft, Copy, Crown, Hourglass, Sparkles } from "lucide-react";
 import { useAuth } from "./hooks/useAuth";
 import { useSocket } from "./hooks/useSocket";
 import { AuthForm } from "./components/AuthForm";
@@ -164,33 +165,25 @@ export default function Home() {
 
   if (screen === "waiting") {
     return (
-      <div className="flex min-h-dvh items-center justify-center px-4">
-        <div className="pointer-events-none fixed inset-0 overflow-hidden">
-          <div className="absolute top-1/3 left-1/2 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber/5 blur-[120px]" />
-        </div>
-
+      <div className="flex min-h-dvh items-center justify-center px-4 py-10">
         <div className="relative w-full max-w-sm">
-          <Card className="glow-amber border-border/50 bg-card/80 backdrop-blur-sm">
+          <Card className="premium-panel glow-amber">
             <CardHeader className="text-center">
-              <div className="animate-pulse-amber mb-2">
-                <span
-                  className="text-5xl select-none"
-                  style={{
-                    filter: "drop-shadow(0 0 20px oklch(0.78 0.12 75 / 30%))",
-                  }}
-                >
-                  ♔
-                </span>
+              <div className="animate-pulse-amber mx-auto mb-3 grid size-16 place-items-center rounded-lg border border-primary/20 bg-primary/10">
+                <Crown className="size-8 text-primary" />
               </div>
-              <CardTitle className="text-xl">Waiting for opponent</CardTitle>
+              <div className="mx-auto mb-2 flex w-fit items-center gap-1.5 rounded-full border border-primary/15 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                <Hourglass className="size-3.5" />
+                Opponent pending
+              </div>
+              <CardTitle className="text-2xl">Waiting for opponent</CardTitle>
               <CardDescription>
                 Share this room code with your opponent
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {/* Room code display */}
               <div
-                className="cursor-pointer rounded-lg border border-border/50 bg-background/50 p-4 text-center font-mono text-xs break-all text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+                className="cursor-pointer rounded-lg border border-primary/15 bg-background/55 p-4 text-center font-mono text-xs break-all text-muted-foreground transition-colors hover:border-primary/35 hover:text-foreground"
                 onClick={() => {
                   if (gameId) {
                     navigator.clipboard.writeText(gameId);
@@ -199,6 +192,9 @@ export default function Home() {
                   }
                 }}
               >
+                <div className="mb-2 flex justify-center text-primary">
+                  <Sparkles className="size-4" />
+                </div>
                 {gameId}
               </div>
 
@@ -214,14 +210,16 @@ export default function Home() {
                   }
                 }}
               >
+                <Copy className="size-4" />
                 {copied ? "Copied!" : "Copy Room Code"}
               </Button>
 
               <Button
                 variant="ghost"
-                className="w-full text-muted-foreground"
+                className="w-full gap-2 text-muted-foreground"
                 onClick={() => setScreen("lobby")}
               >
+                <ArrowLeft className="size-4" />
                 Back to Lobby
               </Button>
             </CardContent>

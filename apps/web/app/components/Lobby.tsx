@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
+import { DoorOpen, LogOut, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -28,85 +30,81 @@ export function Lobby({
   const [joinId, setJoinId] = useState("");
 
   return (
-    <div className="flex min-h-dvh items-center justify-center px-4">
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber/5 blur-[150px]" />
-      </div>
-
-      <div className="relative w-full max-w-sm">
-        <Card className="glow-amber border-border/50 bg-card/80 backdrop-blur-sm">
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="flex items-center gap-3 text-xl tracking-tight">
-                <span className="text-2xl select-none" style={{ filter: "drop-shadow(0 0 12px oklch(0.78 0.12 75 / 30%))" }}>♛</span>
-                Chess
-              </CardTitle>
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="max-w-28 truncate font-mono text-xs font-normal">
+    <div className="flex min-h-dvh items-center justify-center px-4 py-10">
+      <div className="relative w-full max-w-3xl">
+        <Card className="premium-panel glow-amber overflow-hidden">
+          <CardHeader className="border-b border-border/50 pb-4">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-3">
+                <span className="chess-mark text-5xl leading-none">♛</span>
+                <div>
+                  <CardTitle className="text-2xl tracking-tight">Chess</CardTitle>
+                </div>
+              </div>
+              <div className="flex min-w-0 flex-wrap items-center gap-2 sm:flex-nowrap sm:justify-end">
+                <Badge variant="outline" className="max-w-full border-primary/15 bg-background/35 px-3 font-mono text-xs font-normal sm:max-w-72">
                   {username}
                 </Badge>
                 <Button
                   variant="ghost"
-                  size="xs"
+                  size="sm"
                   onClick={onLogout}
-                  className="text-muted-foreground"
+                  className="gap-1.5 text-muted-foreground"
                 >
+                  <LogOut className="size-3.5" />
                   Logout
                 </Button>
               </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-5">
-            {/* Connection status */}
-            <div className="flex items-center justify-center gap-2 text-sm">
-              <span
-                className={`inline-block h-2 w-2 rounded-full ${
-                  connected
-                    ? "bg-emerald-400 shadow-[0_0_8px_oklch(0.7_0.15_155)]"
-                    : "animate-pulse-amber bg-amber"
-                }`}
+          <CardContent className="grid gap-5 p-5 md:grid-cols-[0.88fr_1fr]">
+            <div className="flex items-center justify-center">
+              <Image
+                src="/chessboard.png"
+                alt="Chess board"
+                width={562}
+                height={564}
+                priority
+                className="h-auto w-full max-w-[300px] rounded-lg shadow-xl shadow-black/30"
               />
-              <span className="text-muted-foreground">
-                {connected ? "Connected" : "Connecting..."}
-              </span>
             </div>
 
-            {/* Create room */}
-            <Button
-              onClick={onCreateRoom}
-              disabled={!connected}
-              className="h-12 w-full text-sm font-semibold"
-              size="lg"
-            >
-              <span className="mr-1.5 select-none">+</span>
-              New Game
-            </Button>
-
-            {/* Divider */}
-            <div className="flex items-center gap-3">
-              <div className="h-px flex-1 bg-border" />
-              <span className="text-xs text-muted-foreground uppercase tracking-widest">or join</span>
-              <div className="h-px flex-1 bg-border" />
-            </div>
-
-            {/* Join room */}
-            <div className="flex gap-2">
-              <Input
-                type="text"
-                placeholder="Paste room code"
-                value={joinId}
-                onChange={(e) => setJoinId(e.target.value)}
-                className="h-11 flex-1 bg-background/50 font-mono text-sm"
-              />
+            <div className="flex flex-col justify-center space-y-5">
               <Button
-                onClick={() => joinId && onJoinRoom(joinId)}
-                disabled={!connected || !joinId}
-                variant="secondary"
-                className="h-11 px-5"
+                onClick={onCreateRoom}
+                disabled={!connected}
+                className="h-12 w-full gap-2 text-sm font-semibold shadow-lg shadow-primary/10"
                 size="lg"
               >
-                Join
+                <Plus className="size-4" />
+                New Game
               </Button>
+
+              <div className="flex items-center gap-3">
+                <div className="h-px flex-1 bg-border" />
+                <span className="text-xs uppercase tracking-[0.18em] text-muted-foreground">join</span>
+                <div className="h-px flex-1 bg-border" />
+              </div>
+
+              <div className="flex flex-col gap-2 sm:flex-row">
+                <Input
+                  type="text"
+                  placeholder="Paste room code"
+                  value={joinId}
+                  onChange={(e) => setJoinId(e.target.value)}
+                  className="h-12 flex-1 bg-background/55 font-mono text-sm"
+                />
+                <Button
+                  onClick={() => joinId && onJoinRoom(joinId)}
+                  disabled={!connected || !joinId}
+                  variant="secondary"
+                  className="h-12 gap-2 px-5"
+                  size="lg"
+                >
+                  <DoorOpen className="size-4" />
+                  Join
+                </Button>
+              </div>
             </div>
           </CardContent>
         </Card>
