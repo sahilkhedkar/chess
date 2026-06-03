@@ -1,16 +1,18 @@
-import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '@repo/shared/constants';
+import jwt from "jsonwebtoken";
+import { JWT_SECRET } from "@repo/shared/constants";
 
-const signJwt = (payload: object) => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
-}
+export const signJwt = (payload: object) => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
+};
 
-const decodeJwt = (token: string) => {
+export const decodeJwt = (token: string) => {
+  return jwt.decode(token);
+};
+
+export const verifyJwt = (token: string) => {
   try {
     return jwt.verify(token, JWT_SECRET);
   } catch (error) {
     return null;
   }
-}
-
-export { signJwt, decodeJwt };
+};

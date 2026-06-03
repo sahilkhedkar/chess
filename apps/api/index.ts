@@ -1,29 +1,30 @@
 import { Elysia } from "elysia";
 import { node } from "@elysiajs/node";
 import * as schema from "@repo/shared/zod-schema";
-import { signJwt } from "../lib/jwt";
+import { signJwt } from "./lib/jwt";
 import { authPlugin } from "./auth";
-import { userStore } from "@repo/db/db";
+import { userStore } from "@repo/db";
 import { cors } from "@elysiajs/cors";
 
-const app = new Elysia({ adapter: node() }).use(cors()).get("/", () => "Hello Elysia");
+const app = new Elysia({ adapter: node() })
+  .use(cors())
+  .get("/", () => "Hello Elysia");
 
-//signup route
-
-app.post("/signup", async (req: any) => {
+// Signup Route
+app.post("/signup", async (req) => {
   const { success, data } = schema.signup.safeParse(req.body);
   if (!success) {
     return { error: "Invalid input" };
   }
 
-  const existingUser = await userStore.findByUsername(data.email);
+  const existingUser = await userStore.findByUsername(data.username);
   if (existingUser) {
     return { error: "User already exists" };
   }
 
-  await userStore.createUser(data.email, data.password);
+  await userStore.createUser(data.username, data.password);
 
-  const token = signJwt({ email: data.email });
+  const token = signJwt({ email: data.username });
 
   return {
     message: "User signed up successfully!",
@@ -33,20 +34,19 @@ app.post("/signup", async (req: any) => {
   };
 });
 
-//login route
-
-app.post("/login", async (req: any) => {
+// Login Route
+app.post("/login", async (req) => {
   const { success, data } = schema.login.safeParse(req.body);
   if (!success) {
     return { error: "Invalid input" };
   }
 
-  const user = await userStore.verifyUser(data.email, data.password);
+  const user = await userStore.verifyUser(data.username, data.password);
   if (!user) {
     return { error: "Invalid credentials" };
   }
 
-  const token = signJwt({ email: data.email });
+  const token = signJwt({ email: data.username });
 
   return {
     message: "User logged in successfully!",
@@ -56,7 +56,8 @@ app.post("/login", async (req: any) => {
   };
 });
 
-app.use(authPlugin).get("/protected", ({ user }: any) => {
+// Protected Routes (auth plugin must be .use()'d before accessing its context)
+app.use(authPlugin).get("/protected", ({ user }) => {
   return {
     message: "This is a protected route!",
     user: user,

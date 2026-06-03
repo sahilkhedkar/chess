@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "npx tsx src/index.ts"
+    "dev": "npx tsx index.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.4.1",

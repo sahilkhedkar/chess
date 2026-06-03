@@ -1,20 +1,18 @@
-import { z } from "zod";
-
-export const name = "zod-schema";
+import * as z from "zod";
 
 const signup = z.object({
-    email: z.string().email(),
-    password: z.string()
+  username: z.string().min(2).max(100),
+  password: z.string().min(6).max(100),
 });
 
 const login = z.object({
-    email: z.string().email(),
-    password: z.string(),
+  username: z.string().min(2).max(100),
+  password: z.string().min(6).max(100),
 });
 
 const websocketMessage = z.object({
-    type: z.string(),
-    payload: z.object().optional()
+  type: z.string(),
+  payload: z.record(z.string(), z.unknown()).optional(),
 });
 
 export { signup, login, websocketMessage };

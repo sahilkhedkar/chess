@@ -1,11 +1,11 @@
 import { Elysia } from "elysia";
-import { decodeJwt } from "../lib/jwt";
+import { verifyJwt } from "./lib/jwt";
 
 export const authPlugin = new Elysia({ name: "auth" })
   .derive(({ request }) => {
     const header = request.headers.get("Authorization");
     const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
-    const user = token ? decodeJwt(token) : null;
+    const user = token ? verifyJwt(token) : null;
     console.log(user);
     return { user };
   })
