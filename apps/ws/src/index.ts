@@ -1,6 +1,6 @@
 import { WebSocketServer } from "ws";
-import { websocketMessageSchema } from "@repo/shared/zod-schema";
-
+import { websocketMessage } from "@repo/shared/zod-schema";
+import { userStore } from "@repo/db";
 import { verifyJwt, extractToken } from "./auth";
 import { handleMessage } from "./handlers";
 
@@ -10,23 +10,32 @@ wss.on("connection", (ws, req) => {
   if (!req.url) return ws.close(1008, "Missing token");
 
   const token = extractToken(req.url);
-  const user = token ? verifyJwt(token) : null;
-   if (!user) return ws.close(1008, "Invalid token");
-   console.log("Connected:", user);
+  const decoded = token ? verifyJwt(token) : null;
+  
+   if (!decoded || typeof decoded === "string") return ws.close(1008, "Invalid token");
 
-    ws.on("error", console.error);
+  const username = (decoded as Record<string, unknown>).email as string;
+  const userRecord = username ? userStore.findByUsername(username) : undefined;
 
-      ws.on("message", (raw) => {
-    const { data, success } = websocketMessageSchema.safeParse(
+  if (!userRecord) return ws.close(1008, "User not found");
+
+  const user = { id: userRecord.id, username: userRecord.username };
+
+  console.log("Connected:", user);
+
+  ws.on("error", console.error);
+
+  ws.on("message", (raw) => {
+    const { data, success } = websocketMessage.safeParse(
       JSON.parse(raw.toString()),
     );
 
     if (!success) {
-        console.error("Invalid message:", raw.toString());
+      console.error("Invalid message:", raw.toString());
       return;
     }
 
-        handleMessage(ws, data.type, data.payload);
+       handleMessage(ws, user, data.type, data.payload);
   });
 });
 

@@ -7,9 +7,10 @@
         "dev": "npx tsx src/index.ts"
     },
     "dependencies": {
+        "@elysia/cors": "^1.4.2",
         "@elysia/node": "^1.4.6",
-        "@repo/shared": "workspace:*",
         "@repo/db": "workspace:*",
+        "@repo/shared": "workspace:*",
         "@types/jsonwebtoken": "^9.0.10",
         "elysia": "^1.4.28",
         "jsonwebtoken": "^9.0.3"
