@@ -1,0 +1,91 @@
+.header-actions { display: flex; align-items: center; gap: 16px; }
+.theme-toggle {
+  min-height: 36px;
+  padding: 0 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 1px solid #dfe2dd;
+  border-radius: 5px;
+  background: #fff;
+  color: #43564a;
+  font: 500 11px 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+.theme-toggle:hover { background: #f4f6f2; border-color: #cbd5cb; }
+.theme-toggle:focus-visible { outline: 3px solid #7ea48b66; outline-offset: 2px; }
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #171c19;
+  --ink: #e8eee9;
+  --muted: #a5afa8;
+  --line: #343d37;
+  --green: #6d987c;
+  background: var(--bg);
+  color: var(--ink);
+}
+html[data-theme="dark"] body { background: var(--bg); color: var(--ink); }
+html[data-theme="dark"] .shell { background: var(--bg); }
+html[data-theme="dark"] .topbar,
+html[data-theme="dark"] .footer { border-color: var(--line); color: #8f9a92; }
+html[data-theme="dark"] .brand { color: #e8eee9; }
+html[data-theme="dark"] .brand-mark,
+html[data-theme="dark"] .brand-dot { color: #8bb397; }
+html[data-theme="dark"] .top-status,
+html[data-theme="dark"] .online-label,
+html[data-theme="dark"] .intro > p,
+html[data-theme="dark"] .waiting > p,
+html[data-theme="dark"] .copy-hint,
+html[data-theme="dark"] .subtle-btn { color: #a5afa8; }
+html[data-theme="dark"] .intro h1 { color: #e4ebe5; }
+html[data-theme="dark"] .intro h1 em { color: #8fb39a; }
+html[data-theme="dark"] .entry,
+html[data-theme="dark"] .turn-banner,
+html[data-theme="dark"] .moves-card,
+html[data-theme="dark"] .room-code { background: #222925; border-color: #3a443d; color: #e4ebe5; }
+html[data-theme="dark"] .entry-head strong,
+html[data-theme="dark"] .game-heading strong,
+html[data-theme="dark"] .waiting h1,
+html[data-theme="dark"] .turn-banner b { color: #e4ebe5; }
+html[data-theme="dark"] .field-label { color: #abb6ad; }
+html[data-theme="dark"] .text-input { background: #191f1b; border-color: #414b44; color: #e4ebe5; }
+html[data-theme="dark"] .text-input::placeholder { color: #818c84; }
+html[data-theme="dark"] .text-input:focus { border-color: #88ad93; box-shadow: 0 0 0 3px #78947e30; }
+html[data-theme="dark"] .divider span,
+html[data-theme="dark"] .waiting-player { border-color: #39433c; }
+html[data-theme="dark"] .divider i,
+html[data-theme="dark"] .fine-print { color: #909b93; }
+html[data-theme="dark"] .join-btn,
+html[data-theme="dark"] .resign-btn,
+html[data-theme="dark"] .share-btn { background: #252d28; border-color: #424d45; color: #c3d0c6; }
+html[data-theme="dark"] .join-btn:hover:not(:disabled),
+html[data-theme="dark"] .share-btn:hover { background: #303b33; }
+html[data-theme="dark"] .wait-icon,
+html[data-theme="dark"] .turn-icon,
+html[data-theme="dark"] .avatar,
+html[data-theme="dark"] .light-avatar { background: #303b34; color: #b7c9bb; }
+html[data-theme="dark"] .dark-avatar { background: #111613; color: #e8eee9; }
+html[data-theme="dark"] .room-code { color: #a6c4ae; }
+html[data-theme="dark"] .moves-title,
+html[data-theme="dark"] .moves-columns { border-color: #374139; color: #aab5ad; }
+html[data-theme="dark"] .move-row { color: #c3cec5; }
+html[data-theme="dark"] .move-row:nth-child(even) { background: #28312b; }
+html[data-theme="dark"] .empty-moves { color: #9ba69e; }
+html[data-theme="dark"] .board-wrap { background: #e9e7df; border-color: #414a43; }
+html[data-theme="dark"] .clock { background: #252e28; border-color: #424c45; color: #cbd6ce; }
+html[data-theme="dark"] .clock-active { background: #527761; border-color: #527761; color: #fff; }
+html[data-theme="dark"] .room-chip { border-color: #3b453e; color: #a9b6ac; }
+html[data-theme="dark"] .game-foot { color: #9ba69e; }
+html[data-theme="dark"] .win-card { background: #222925; color: #e4ebe5; }
+html[data-theme="dark"] .win-card h2 { color: #e4ebe5; }
+html[data-theme="dark"] .win-card p { color: #a5afa8; }
+html[data-theme="dark"] .theme-toggle { background: #252d28; border-color: #424d45; color: #d2dfd5; }
+html[data-theme="dark"] .theme-toggle:hover { background: #303b33; border-color: #56645a; }
+
+@media (max-width: 420px) {
+  .header-actions { gap: 9px; }
+  .theme-toggle { min-height: 34px; padding: 0 9px; }
+}
