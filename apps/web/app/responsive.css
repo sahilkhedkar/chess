@@ -32,10 +32,12 @@ body { font-family: Arial, Helvetica, sans-serif; background: #f2f3f1; color: #2
 .footer { height: 44px; color: #848d85; }
 .footer > span:last-child { display: none; }
 .fine-print { font: 11px 'DM Sans', sans-serif; }
-.game-layout { gap: 36px; }
+.game-layout { width: 100%; grid-template-columns: minmax(0, min(760px, calc(100% - 340px))) 300px; gap: clamp(28px, 4vw, 52px); }
+.play-column { max-width: 760px; min-width: 0; }
 .board-wrap { padding: 5px; border-color: #dfe1db; border-radius: 4px; box-shadow: 0 2px 10px #252e2915; }
 .sq-light { background: #f0d9b5; }
 .sq-dark { background: #b58863; }
+.piece { font-size: clamp(30px, 5.5vw, 68px); }
 .moves-columns { display: grid; grid-template-columns: 29px minmax(0, 1fr) minmax(0, 1fr); gap: 0; align-items: center; min-height: 27px; border-bottom: 1px solid #efeee9; padding: 0 2px; color: #858d85; font: 10px 'DM Sans', sans-serif; }
 .moves-columns span:not(:first-child) { padding-left: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .moves-columns span:first-child { text-align: center; }
