@@ -16,7 +16,8 @@ export function Lobby({ name, roomCode, connected, error, onNameChange, onRoomCo
   const roomCodeInput = useRef<HTMLInputElement>(null);
 
   return <section className="lobby">
-    <div className="intro"><h1>Play chess<br/><em>with a friend.</em></h1><p>Create a room and share the code, or join a friend's game.</p><img className="mini-board" src="/chessboard.png" alt="Classic chessboard with tan and brown squares"/></div>
+    <div className="intro"><h1>Play chess<br/><em>with a friend.</em></h1><p>Create a room and share the code, or join a friend's game.</p></div>
+    <img className="mini-board" src="/chessboard.png" alt="Classic chessboard with tan and brown squares"/>
     <div className="entry"><div className="entry-head"><strong>Play online</strong><span className="online-label"><span className={`status-dot ${connected ? "online" : ""}`}/>{connected ? "Connected" : "Connecting"}</span></div>
       <label className="field-label" htmlFor="name">Name</label><input id="name" className="text-input" placeholder="Enter your name" maxLength={24} value={name} onChange={event => onNameChange(event.target.value)} onKeyDown={event => { if (event.key === "Enter") { event.preventDefault(); roomCodeInput.current?.focus(); } }}/>
       <button type="button" className="primary-btn" onClick={onCreate} disabled={!connected}>{connected ? <><Swords size={17}/> Create a room <ArrowUpRight size={16}/></> : <><LoaderCircle size={17} className="spin"/> Connecting…</>}</button>
